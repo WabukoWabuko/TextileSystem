@@ -1,0 +1,62 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.csproj.user
+
+# Visual Studio / Rider / VS Code
+.vs/
+.idea/
+.vscode/
+*.swp
+*~
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa]rm/
+[Aa]rm64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# NuGet
+*.nupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+*.nuget.props
+*.nuget.targets
+
+# Avalonia / Publish
+publish/
+*.exe
+*.dll
+*.pdb
+*.app
+*.dmg
+
+# Database (important – do not commit the live database)
+**/Data/*.db
+**/Data/*.db-shm
+**/Data/*.db-wal
+
+# Images uploaded by users
+**/Assets/Items/*
+!**/Assets/Items/.gitkeep
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs & temporary
+*.log
+*.tmp
+*.temp
