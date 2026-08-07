@@ -88,8 +88,7 @@
                               AutoGenerateColumns="False"
                               RowBackground="#171A27"
                               HeadersVisibility="Column"
-                              ColumnHeaderHeight="42"
-                              Height="Auto">
+                              ColumnHeaderHeight="42">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Code" Binding="{Binding ItemCode}" Width="120" />
                             <DataGridTextColumn Header="Name" Binding="{Binding ItemName}" Width="220" />
@@ -144,8 +143,8 @@
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Spacing="12" HorizontalAlignment="Left">
-                        <Button Classes="accent" Content="Save item" Command="{Binding SaveItemAsyncCommand}" Width="120" />
-                        <Button Content="Refresh" Command="{Binding LoadItemsAsyncCommand}" Width="120" />
+                        <Button Classes="accent" Content="Save item" Command="{Binding SaveItemCommand}" Width="120" />
+                        <Button Content="Refresh" Command="{Binding LoadItemsCommand}" Width="120" />
                     </StackPanel>
                     <TextBlock Text="{Binding StatusMessage}" Foreground="#C7C7D0" />
                 </StackPanel>
