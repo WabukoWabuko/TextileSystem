@@ -73,33 +73,30 @@
             <Border Classes="panel" Grid.Column="0" Margin="0,0,16,0">
                 <Grid RowDefinitions="Auto,Auto,*" ColumnDefinitions="*">
                     <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center" Margin="0,0,0,16">
-                        <TextBox Width="320" Watermark="Search items by code, name, category or supplier" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
-                        <Button Classes="accent" Content="Search" Command="{Binding SearchAsyncCommand}" Width="110" />
+                        <TextBox Width="320" PlaceholderText="Search items by code, name, category or supplier" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
+                        <Button Classes="accent" Content="Search" Command="{Binding SearchCommand}" Width="110" />
                         <Button Classes="accent" Content="New Item" Command="{Binding NewItemCommand}" Width="110" />
                         <Button Content="Edit" Command="{Binding EditItemCommand}" Width="80" />
-                        <Button Content="Deactivate" Command="{Binding DeactivateItemAsyncCommand}" Width="110" />
+                        <Button Content="Deactivate" Command="{Binding DeactivateItemCommand}" Width="110" />
                     </StackPanel>
 
                     <TextBlock Classes="subtitle" Text="Inventory list" Margin="0,0,0,12" />
 
                     <DataGrid Grid.Row="2"
-                              Items="{Binding Items}"
+                              ItemsSource="{Binding Items}"
                               SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                               AutoGenerateColumns="False"
-                              CanUserAddRows="False"
-                              GridLinesVisibility="None"
                               RowBackground="#171A27"
-                              AlternatingRowBackground="#1E2233"
                               HeadersVisibility="Column"
                               ColumnHeaderHeight="42"
                               Height="Auto">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Code" Binding="{Binding ItemCode}" Width="120" />
-                            <DataGridTextColumn Header="Name" Binding="{Binding ItemName}" Width="2*" />
+                            <DataGridTextColumn Header="Name" Binding="{Binding ItemName}" Width="220" />
                             <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="130" />
-                            <DataGridTextColumn Header="Stock" Binding="{Binding CurrentStock}" Width="90" />
-                            <DataGridTextColumn Header="Reorder" Binding="{Binding ReorderLevel}" Width="90" />
-                            <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="90" />
+                            <DataGridTextColumn Header="Stock" Binding="{Binding CurrentStock}" Width="100" />
+                            <DataGridTextColumn Header="Reorder" Binding="{Binding ReorderLevel}" Width="100" />
+                            <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="100" />
                             <DataGridTextColumn Header="Supplier" Binding="{Binding Supplier}" Width="150" />
                         </DataGrid.Columns>
                     </DataGrid>
@@ -113,31 +110,31 @@
 
                     <StackPanel Spacing="12">
                         <StackPanel Orientation="Horizontal" Spacing="12">
-                            <TextBox Width="220" Watermark="Item code" Text="{Binding ItemCode}" IsReadOnly="{Binding IsEditing}" />
-                            <TextBox Width="360" Watermark="Item name" Text="{Binding ItemName}" />
+                            <TextBox Width="220" PlaceholderText="Item code" Text="{Binding ItemCode}" IsReadOnly="{Binding IsEditing}" />
+                            <TextBox Width="360" PlaceholderText="Item name" Text="{Binding ItemName}" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Spacing="12">
-                            <ComboBox Width="220" Items="{Binding Categories}" SelectedItem="{Binding Category}" />
-                            <ComboBox Width="220" Items="{Binding FabricTypes}" SelectedItem="{Binding FabricType}" />
+                            <ComboBox Width="220" ItemsSource="{Binding Categories}" SelectedItem="{Binding Category}" />
+                            <ComboBox Width="220" ItemsSource="{Binding FabricTypes}" SelectedItem="{Binding FabricType}" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Spacing="12">
-                            <ComboBox Width="220" Items="{Binding Colors}" SelectedItem="{Binding Color}" />
-                            <TextBox Width="220" Watermark="Size" Text="{Binding Size}" />
+                            <ComboBox Width="220" ItemsSource="{Binding Colors}" SelectedItem="{Binding Color}" />
+                            <TextBox Width="220" PlaceholderText="Size" Text="{Binding Size}" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Spacing="12">
-                            <ComboBox Width="220" Items="{Binding Units}" SelectedItem="{Binding UnitOfMeasure}" />
-                            <ComboBox Width="220" Items="{Binding Sections}" SelectedItem="{Binding WarehouseSection}" />
+                            <ComboBox Width="220" ItemsSource="{Binding Units}" SelectedItem="{Binding UnitOfMeasure}" />
+                            <ComboBox Width="220" ItemsSource="{Binding Sections}" SelectedItem="{Binding WarehouseSection}" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Spacing="12">
-                            <TextBox Width="220" Watermark="Rack location" Text="{Binding RackLocation}" />
-                            <TextBox Width="220" Watermark="Supplier" Text="{Binding Supplier}" />
+                            <TextBox Width="220" PlaceholderText="Rack location" Text="{Binding RackLocation}" />
+                            <TextBox Width="220" PlaceholderText="Supplier" Text="{Binding Supplier}" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Spacing="12">
-                            <TextBox Width="220" Watermark="Reorder level" Text="{Binding ReorderLevel}" />
-                            <TextBox Width="220" Watermark="Current stock" Text="{Binding CurrentStock}" />
+                            <TextBox Width="220" PlaceholderText="Reorder level" Text="{Binding ReorderLevel}" />
+                            <TextBox Width="220" PlaceholderText="Current stock" Text="{Binding CurrentStock}" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
-                            <ComboBox Width="220" Items="{Binding StatusOptions}" SelectedItem="{Binding Status}" />
+                            <ComboBox Width="220" ItemsSource="{Binding StatusOptions}" SelectedItem="{Binding Status}" />
                             <StackPanel>
                                 <TextBlock Text="Item rating" Foreground="#A2A6C1" />
                                 <Slider Minimum="1" Maximum="5" Value="{Binding ItemRating}" TickFrequency="1" IsSnapToTickEnabled="True" Width="220" />
