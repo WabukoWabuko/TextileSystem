@@ -3,20 +3,156 @@
         xmlns:vm="using:TextileWarehouseERP.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
         x:Class="TextileWarehouseERP.Views.MainWindow"
         x:DataType="vm:MainViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="TextileWarehouseERP">
+        Title="Textile Warehouse ERP">
 
     <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainViewModel />
     </Design.DataContext>
 
-    <TextBox Text="{Binding Greeting}"
-             HorizontalAlignment="Center"
-             VerticalAlignment="Center" />
+    <Window.Styles>
+        <Style Selector="TextBlock.header">
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="#F7F7FB" />
+        </Style>
+        <Style Selector="TextBlock.subtitle">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Foreground" Value="#C7C7D0" />
+        </Style>
+        <Style Selector="Button.accent">
+            <Setter Property="Background" Value="#5A7FFF" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+        <Style Selector="Border.panel">
+            <Setter Property="Background" Value="#1D2031" />
+            <Setter Property="CornerRadius" Value="18" />
+            <Setter Property="Padding" Value="20" />
+        </Style>
+        <Style Selector="TextBox">
+            <Setter Property="Background" Value="#2A2D40" />
+            <Setter Property="Foreground" Value="#F7F7FB" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+        <Style Selector="ComboBox">
+            <Setter Property="Background" Value="#2A2D40" />
+            <Setter Property="Foreground" Value="#F7F7FB" />
+        </Style>
+    </Window.Styles>
 
+    <Grid RowDefinitions="Auto,*" Background="#12131F">
+        <Border Background="#1B1F32" Padding="24" CornerRadius="0,0,24,24" Grid.Row="0">
+            <Grid ColumnDefinitions="3*,2*" VerticalAlignment="Center">
+                <StackPanel Spacing="8">
+                    <TextBlock Classes="header" Text="Textile Warehouse ERP" />
+                    <TextBlock Classes="subtitle" Text="Modern inventory control for textile operations, with fast item management and built-in analytics." />
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Spacing="8">
+                    <Border Background="#2B2F44" CornerRadius="14" Padding="12,10">
+                        <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+                            <TextBlock Text="Status:" Foreground="#A2A6C1" />
+                            <TextBlock Text="{Binding StatusMessage}" FontWeight="Bold" Foreground="#E0E4FF" />
+                        </StackPanel>
+                    </Border>
+                    <Border Background="#2B2F44" CornerRadius="14" Padding="12,10">
+                        <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+                            <TextBlock Text="Company:" Foreground="#A2A6C1" />
+                            <TextBlock Text="{Binding CompanyName}" FontWeight="Bold" Foreground="#E0E4FF" />
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1" Margin="24,20,24,24" ColumnDefinitions="2.5*,1.2*" RowDefinitions="*">
+            <Border Classes="panel" Grid.Column="0" Margin="0,0,16,0">
+                <Grid RowDefinitions="Auto,Auto,*" ColumnDefinitions="*">
+                    <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center" Margin="0,0,0,16">
+                        <TextBox Width="320" Watermark="Search items by code, name, category or supplier" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
+                        <Button Classes="accent" Content="Search" Command="{Binding SearchAsyncCommand}" Width="110" />
+                        <Button Classes="accent" Content="New Item" Command="{Binding NewItemCommand}" Width="110" />
+                        <Button Content="Edit" Command="{Binding EditItemCommand}" Width="80" />
+                        <Button Content="Deactivate" Command="{Binding DeactivateItemAsyncCommand}" Width="110" />
+                    </StackPanel>
+
+                    <TextBlock Classes="subtitle" Text="Inventory list" Margin="0,0,0,12" />
+
+                    <DataGrid Grid.Row="2"
+                              Items="{Binding Items}"
+                              SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                              AutoGenerateColumns="False"
+                              CanUserAddRows="False"
+                              GridLinesVisibility="None"
+                              RowBackground="#171A27"
+                              AlternatingRowBackground="#1E2233"
+                              HeadersVisibility="Column"
+                              ColumnHeaderHeight="42"
+                              Height="Auto">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Code" Binding="{Binding ItemCode}" Width="120" />
+                            <DataGridTextColumn Header="Name" Binding="{Binding ItemName}" Width="2*" />
+                            <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="130" />
+                            <DataGridTextColumn Header="Stock" Binding="{Binding CurrentStock}" Width="90" />
+                            <DataGridTextColumn Header="Reorder" Binding="{Binding ReorderLevel}" Width="90" />
+                            <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="90" />
+                            <DataGridTextColumn Header="Supplier" Binding="{Binding Supplier}" Width="150" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Border>
+
+            <Border Classes="panel" Grid.Column="1">
+                <StackPanel Spacing="16">
+                    <TextBlock Classes="header" Text="Item details" />
+                    <TextBlock Classes="subtitle" Text="Create or update an item record with an intuitive modern form." />
+
+                    <StackPanel Spacing="12">
+                        <StackPanel Orientation="Horizontal" Spacing="12">
+                            <TextBox Width="220" Watermark="Item code" Text="{Binding ItemCode}" IsReadOnly="{Binding IsEditing}" />
+                            <TextBox Width="360" Watermark="Item name" Text="{Binding ItemName}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Spacing="12">
+                            <ComboBox Width="220" Items="{Binding Categories}" SelectedItem="{Binding Category}" />
+                            <ComboBox Width="220" Items="{Binding FabricTypes}" SelectedItem="{Binding FabricType}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Spacing="12">
+                            <ComboBox Width="220" Items="{Binding Colors}" SelectedItem="{Binding Color}" />
+                            <TextBox Width="220" Watermark="Size" Text="{Binding Size}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Spacing="12">
+                            <ComboBox Width="220" Items="{Binding Units}" SelectedItem="{Binding UnitOfMeasure}" />
+                            <ComboBox Width="220" Items="{Binding Sections}" SelectedItem="{Binding WarehouseSection}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Spacing="12">
+                            <TextBox Width="220" Watermark="Rack location" Text="{Binding RackLocation}" />
+                            <TextBox Width="220" Watermark="Supplier" Text="{Binding Supplier}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Spacing="12">
+                            <TextBox Width="220" Watermark="Reorder level" Text="{Binding ReorderLevel}" />
+                            <TextBox Width="220" Watermark="Current stock" Text="{Binding CurrentStock}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+                            <ComboBox Width="220" Items="{Binding StatusOptions}" SelectedItem="{Binding Status}" />
+                            <StackPanel>
+                                <TextBlock Text="Item rating" Foreground="#A2A6C1" />
+                                <Slider Minimum="1" Maximum="5" Value="{Binding ItemRating}" TickFrequency="1" IsSnapToTickEnabled="True" Width="220" />
+                                <TextBlock Text="{Binding RatingDisplay}" FontSize="16" FontWeight="Bold" Foreground="#F7F7FB" />
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Spacing="12" HorizontalAlignment="Left">
+                        <Button Classes="accent" Content="Save item" Command="{Binding SaveItemAsyncCommand}" Width="120" />
+                        <Button Content="Refresh" Command="{Binding LoadItemsAsyncCommand}" Width="120" />
+                    </StackPanel>
+                    <TextBlock Text="{Binding StatusMessage}" Foreground="#C7C7D0" />
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
 </Window>
