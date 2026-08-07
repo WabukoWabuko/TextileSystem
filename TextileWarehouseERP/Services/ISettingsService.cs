@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 namespace TextileWarehouseERP.Services;
 
 public interface ISettingsService

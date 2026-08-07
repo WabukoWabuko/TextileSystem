@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using TextileWarehouseERP.ViewModels;
 using TextileWarehouseERP.Views;
 
@@ -9,7 +10,7 @@ namespace TextileWarehouseERP;
 
 public partial class App : Application
 {
-    public static IServiceProvider Services { get; private set; } = null!;
+    public static IServiceProvider Services { get; set; } = null!;
 
     public override void Initialize()
     {
